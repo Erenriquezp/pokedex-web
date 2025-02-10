@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex - Buscar Pokémon</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Pokédex Web</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="sprites.html">Ver Sprites</a></li>
+            <li><a href="stats.html">Estadísticas</a></li>
+            <li><a href="evolution.html">Evolución</a></li>
+            <li><a href="types.html">Filtrar por Tipo</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="search-container">
+        <input type="text" id="searchInput" placeholder="Ingresa el nombre de un Pokémon">
+        <button id="searchBtn">Buscar</button>
+    </section>
+
+    <section id="pokemonDetails" class="pokemon-details">
+        <!-- Aquí se mostrarán los detalles del Pokémon -->
+    </section>
+</main>
+
+<script src="pokedex.js"></script>
+</body>
+</html>

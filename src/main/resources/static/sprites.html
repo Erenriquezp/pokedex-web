@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Sprites</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+    <h1>Pokémon Sprites</h1>
+    <nav>
+        <ul>
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="pokedex.html">Buscar Pokémon</a></li>
+            <li><a href="stats.html">Estadísticas</a></li>
+            <li><a href="evolution.html">Evolución</a></li>
+            <li><a href="types.html">Tipos</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section class="search-container">
+        <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Ingrese nombre del Pokémon">
+        <button id="searchBtn">Buscar</button>
+    </section>
+
+    <section id="spritesContainer" class="sprite-grid">
+        <!-- Los sprites se mostrarán aquí dinámicamente -->
+    </section>
+</main>
+
+<script src="sprites.js"></script>
+</body>
+</html>

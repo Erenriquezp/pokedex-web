@@ -108,6 +108,7 @@ public class ExternalApiService {
 
     private Sprites mapToSprites(Map<String, Object> data) {
         Sprites sprites = new Sprites();
+
         sprites.setFrontDefault((String) data.getOrDefault("front_default", ""));
         sprites.setBackDefault((String) data.getOrDefault("back_default", ""));
         sprites.setFrontShiny((String) data.getOrDefault("front_shiny", ""));
@@ -116,6 +117,27 @@ public class ExternalApiService {
         sprites.setBackFemale((String) data.getOrDefault("back_female", ""));
         sprites.setFrontShinyFemale((String) data.getOrDefault("front_shiny_female", ""));
         sprites.setBackShinyFemale((String) data.getOrDefault("back_shiny_female", ""));
+
+        // Obtener la sección "other"
+        Map<String, Object> otherSprites = (Map<String, Object>) data.get("other");
+
+        // Dream World sprites
+        Map<String, Object> dreamWorld = (Map<String, Object>) otherSprites.getOrDefault("dream_world", Map.of());
+        sprites.setDreamWorldFront((String) dreamWorld.getOrDefault("front_default", ""));
+        sprites.setDreamWorldFrontFemale((String) dreamWorld.getOrDefault("front_female", ""));
+
+        // Home sprites
+        Map<String, Object> homeSprites = (Map<String, Object>) otherSprites.getOrDefault("home", Map.of());
+        sprites.setHomeFront((String) homeSprites.getOrDefault("front_default", ""));
+        sprites.setHomeFrontShiny((String) homeSprites.getOrDefault("front_shiny", ""));
+        sprites.setHomeFrontFemale((String) homeSprites.getOrDefault("front_female", ""));
+        sprites.setHomeFrontShinyFemale((String) homeSprites.getOrDefault("front_shiny_female", ""));
+
+        // Official Artwork sprites
+        Map<String, Object> officialArtwork = (Map<String, Object>) otherSprites.getOrDefault("official-artwork", Map.of());
+        sprites.setOfficialArtworkFront((String) officialArtwork.getOrDefault("front_default", ""));
+        sprites.setOfficialArtworkShiny((String) officialArtwork.getOrDefault("front_shiny", ""));
+
         return sprites;
     }
 }

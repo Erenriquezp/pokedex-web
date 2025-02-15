@@ -21,6 +21,18 @@ public class Sprites {
     private String frontShinyFemale;
     private String backShinyFemale;
 
+    // Sprites de "Other"
+    private String dreamWorldFront;
+    private String dreamWorldFrontFemale;
+
+    private String homeFront;
+    private String homeFrontShiny;
+    private String homeFrontFemale;
+    private String homeFrontShinyFemale;
+
+    private String officialArtworkFront;
+    private String officialArtworkShiny;
+
     @OneToOne(mappedBy = "sprites") // Relación inversa con Pokémon
     @JsonIgnore
     private Pokemon pokemon;

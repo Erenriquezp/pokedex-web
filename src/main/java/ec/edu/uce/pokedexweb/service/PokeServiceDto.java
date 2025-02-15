@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -40,7 +39,7 @@ public class PokeServiceDto {
 
         return PokemonDto.builder()
                 .name(pokemon.getName())
-                .spriteUrl(pokemon.getSprites() != null ? pokemon.getSprites().getFrontDefault() : "")
+                .spriteUrl(pokemon.getSprites() != null ? pokemon.getSprites().getOfficialArtworkFront() : "")
                 .types(pokemon.getTypes() != null ?
                         pokemon.getTypes().stream()
                                 .map(type -> new Type(type.getSlot(), type.getName(), type.getUrl()))

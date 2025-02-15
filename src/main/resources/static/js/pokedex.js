@@ -14,6 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+/**
+ * Actualiza los botones de navegación con el Pokémon actual.
+ * @param {string} pokemonName - Nombre del Pokémon.
+ */
+function updateNavigationButtons(pokemonName) {
+    const spritesBtn = document.getElementById("viewSpritesBtn");
+    const evolutionBtn = document.getElementById("viewEvolutionBtn");
+
+    if (spritesBtn && evolutionBtn) {
+        spritesBtn.onclick = () => window.location.href = `/pages/sprites.html?name=${pokemonName}`;
+        evolutionBtn.onclick = () => window.location.href = `/pages/evolution.html?name=${pokemonName}`;
+    }
+}
+
 
 /**
  * Realiza la búsqueda de un Pokémon por su nombre.
@@ -41,6 +55,7 @@ function searchPokemon() {
             document.getElementById("pokemonDetails").innerHTML = `<p class="error-message">${error.message}</p>`;
             document.getElementById("statsBody").innerHTML = "";
         });
+    updateNavigationButtons(pokemonName);
 }
 
 /**
@@ -51,7 +66,7 @@ function displayPokemonDetails(pokemon) {
     const detailsContainer = document.getElementById("pokemonDetails");
     detailsContainer.innerHTML = `
         <div class="pokemon-card">
-            <img src="${pokemon.sprites?.frontDefault}" alt="${pokemon.name}" class="pokemon-image">
+            <img src="${pokemon.sprites?.dreamWorldFront}" alt="${pokemon.name}" class="pokemon-image">
             <h2>${pokemon.name.toUpperCase()}</h2>
             <p><strong>Id:</strong> ${pokemon.id}</p>
             <p><strong>Altura:</strong> ${pokemon.height} dm</p>

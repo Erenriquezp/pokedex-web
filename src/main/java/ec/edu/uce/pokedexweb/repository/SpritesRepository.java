@@ -9,7 +9,5 @@ import java.util.Optional;
 @Repository
 public interface SpritesRepository extends JpaRepository<Sprites, Long> {
     // Agregar consultas personalizadas si es necesario
-    Sprites findByPokemonName(String name);
-
     Optional<Sprites> findByPokemonNameIgnoreCase(String pokemonName);
 }

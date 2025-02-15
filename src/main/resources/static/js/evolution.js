@@ -1,15 +1,31 @@
 const evolutionApiUrl = "http://localhost:8080/api/evolution"; // URL de la API de evolución
 
+document.addEventListener("DOMContentLoaded", () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const speciesName = urlParams.get("name");
+
+    if (speciesName) {
+        fetchEvolution(speciesName); // Llama a la función para obtener las evoluciones
+    }
+});
+
 /**
  * Realiza la búsqueda de la cadena evolutiva de un Pokémon.
  */
 function searchEvolution() {
-    const speciesName = document.getElementById("evolutionInput").value.trim().toLowerCase();
-    if (!speciesName) {
+    const searchInput = document.getElementById("evolutionInput").value.trim().toLowerCase();
+    if (!searchInput) {
         alert("Ingrese un nombre de Pokémon");
         return;
     }
+    fetchEvolution(searchInput);
+}
 
+/**
+ * Obtiene la evolución del Pokémon desde la API.
+ * @param {string} speciesName - Nombre de la especie del Pokémon.
+ */
+function fetchEvolution(speciesName) {
     fetch(`${evolutionApiUrl}/${speciesName}`)
         .then(response => {
             if (!response.ok) throw new Error("No se encontró evolución.");
@@ -21,7 +37,6 @@ function searchEvolution() {
             document.getElementById("evolutionContainer").innerHTML = `<p class="error-message">${error.message}</p>`;
         });
 }
-
 /**
  * Muestra la cadena evolutiva en la vista.
  * @param {Array} evolutionChain - Lista con la evolución del Pokémon.

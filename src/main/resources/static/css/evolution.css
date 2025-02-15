@@ -10,6 +10,15 @@
     max-width: 100%;
 }
 
+/* 🌟 Contenedor de evolución */
+.evolution-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
 /* 🎴 Tarjeta de Evolución */
 .evolution-card {
     background: var(--header-bg);

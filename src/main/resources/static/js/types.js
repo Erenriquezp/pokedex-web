@@ -35,7 +35,7 @@ function displayPokemonByType(pokemons) {
         const card = document.createElement("div");
         card.className = "pokemon-card";
         card.innerHTML = `
-            <img src="${pokemon.sprites.frontDefault}" alt="${pokemon.name}">
+            <img src="${pokemon.sprites.officialArtworkFront}" alt="${pokemon.name}">
             <h3>${pokemon.name.toUpperCase()}</h3>
         `;
         // 🔹 Agregar evento de clic para redirigir a la vista de búsqueda con detalles

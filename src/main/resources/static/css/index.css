@@ -85,7 +85,7 @@ main {
     background: #ff3e3e;
     color: white;
     padding: 5px 10px;
-    border-radius: 8px;
+    border-radius: 5px;
     font-weight: bold;
     font-size: 14px;
 }
@@ -151,4 +151,34 @@ body {
 .light-theme {
     --header-bg: #ffffff;
     --text-color: #333;
+}
+/* ℹ️ Estilos para la sección informativa */
+.info-container {
+    background-color: var(--bg-color);  /* Fondo oscuro */
+    color: var(--text-color); /* Color de texto claro */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra para dar profundidad */
+}
+
+.info-container p {
+    line-height: 0.8; /* Espaciado entre líneas para mejor legibilidad */
+    margin-bottom: 10px; /* Espacio debajo de los párrafos */
+}
+
+.info-container h2 {
+    color: var(--text-color); /* Color de texto para títulos */
+    font-size: 1.8em;
+}
+
+.info-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-container ul li {
+    background-color: rgba(0, 0, 0, 0.2);
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
 }

@@ -1,6 +1,5 @@
 package ec.edu.uce.pokedexweb.service;
 
-import ec.edu.uce.pokedexweb.dto.PokemonDto;
 import ec.edu.uce.pokedexweb.models.Pokemon;
 import ec.edu.uce.pokedexweb.repository.PokemonRepository;
 import lombok.RequiredArgsConstructor;

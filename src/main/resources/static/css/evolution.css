@@ -1,29 +1,49 @@
 /* 🌟 Contenedor de la Evolución */
 .evolution-flow {
     display: flex;
+    flex-wrap: wrap; /* Permite que los elementos pasen a una segunda línea */
     align-items: center;
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
+    padding: 10px;
+    max-width: 100%;
 }
 
+/* 🎴 Tarjeta de Evolución */
 .evolution-card {
-    background: #1f1f1f;
+    background: var(--header-bg);
     color: white;
     border-radius: 10px;
     padding: 15px;
     text-align: center;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
+    min-width: 250px;
+    flex: 1 1 calc(33.33% - 20px); /* Distribuye las evoluciones en filas */
+    max-width: 250px;
 }
 
 .evolution-card:hover {
     transform: scale(1.1);
 }
 
+/* 🖼️ Imágenes de Evolución */
 .evolution-image {
-    width: 300px;
-    height: 300px;
-    object-fit: contain; /* Mantiene la proporción sin deformar */
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
 
+/* 🌟 Manejo de filas dinámico */
+@media (max-width: 768px) {
+    .evolution-card {
+        flex: 1 1 calc(50% - 20px); /* En pantallas pequeñas, 2 evoluciones por fila */
+    }
+}
+
+@media (max-width: 480px) {
+    .evolution-card {
+        flex: 1 1 100%; /* En pantallas muy pequeñas, 1 evolución por fila */
+    }
 }

@@ -36,7 +36,7 @@ function displayPokemon(pokemons) {
             <h2>${pokemon.name.toUpperCase()}</h2>
 
             <div class="pokemon-info">
-                <h4>Tipos</h4>
+                <h5>Tipos</h5>
                 <div class="pokemon-types">
                     ${pokemon.types.map(type => `<span class="type-label">${type.name.toUpperCase()}</span>`).join("")}
                 </div>
@@ -116,3 +116,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadPokemon();
 });
+
+/**
+ * Redirige a la vista de búsqueda con el nombre del Pokémon ingresado.
+ */
+function handleSearch() {
+    const pokemonName = document.getElementById("searchInput").value.trim().toLowerCase();
+    if (!pokemonName) {
+        alert("Ingrese el nombre de un Pokémon");
+        return;
+    }
+    window.location.href = `/pages/pokedex.html?name=${pokemonName}`;
+}
+
+// 🔹 Agregar evento al botón de búsqueda
+document.getElementById("searchBtn").addEventListener("click", handleSearch);
+

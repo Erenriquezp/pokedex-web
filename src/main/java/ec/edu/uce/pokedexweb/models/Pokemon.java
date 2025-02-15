@@ -24,7 +24,7 @@ public class Pokemon {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "pokemon_id") // Clave foránea en Ability
-    @JsonIgnore // Ignora esta propiedad al serializar
+    @JsonManagedReference // Ignora esta propiedad al serializar
     private List<Ability> abilities;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)

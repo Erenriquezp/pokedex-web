@@ -1,5 +1,6 @@
 package ec.edu.uce.pokedexweb.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class Ability {
 
     @ManyToOne(fetch = FetchType.LAZY) // Muchas habilidades pueden pertenecer a un Pokémon
     @JoinColumn(name = "pokemon_id") // Clave foránea en Ability
+    @JsonBackReference
     private Pokemon pokemon;
 
     public Ability(String name, String url, boolean isHidden, int slot) {

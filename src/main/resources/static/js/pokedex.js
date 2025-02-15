@@ -65,7 +65,10 @@ function displayPokemonDetails(pokemon) {
                     ${pokemon.types.map(type => `<span class="type-label">${type.name.toUpperCase()}</span>`).join("")}
                 </div>
 
-                <h4>Habilidades</h4>
+                <h4 style="margin-top: 10px">Habilidades</h4>
+                <div class="pokemon-types" style="background-color: #1f1f1f; padding: 5px 10px">
+                    ${pokemon.abilities.map(ability => `<span class="type-label">${ability.name.toUpperCase()}</span>`).join("")}
+                </div>
 
             </div>
         </div>

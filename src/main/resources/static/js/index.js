@@ -1,7 +1,7 @@
 const apiUrl = "http://localhost:8080/api/pokemon"; // URL de la API
 const loadDataUrl = "http://localhost:8080/api/pokemon/load"; // Endpoint para cargar datos
 let currentPage = 0;
-const pageSize = 18;
+const pageSize = 20;
 
 /**
  * Carga y muestra Pokémon en la página actual.
@@ -32,9 +32,22 @@ function displayPokemon(pokemons) {
         const card = document.createElement("div");
         card.className = "pokemon-card";
         card.innerHTML = `
-            <img src="${pokemon.spriteUrl}" alt="${pokemon.name}">
-            <h3>${pokemon.name.toUpperCase()}</h3>
+            <img src="${pokemon.spriteUrl}" alt="${pokemon.name}" class="pokemon-image">
+            <h2>${pokemon.name.toUpperCase()}</h2>
+
+            <div class="pokemon-info">
+                <h4>Tipos</h4>
+                <div class="pokemon-types">
+                    ${pokemon.types.map(type => `<span class="type-label">${type.name.toUpperCase()}</span>`).join("")}
+                </div>
+            </div>
         `;
+
+        // 🔹 Agregar evento de clic para redirigir a la vista de búsqueda con detalles
+        card.addEventListener("click", () => {
+            window.location.href = `/pages/pokedex.html?name=${pokemon.name}`;
+        });
+
         container.appendChild(card);
     });
 
@@ -68,25 +81,6 @@ function changePage(direction) {
 }
 
 /**
- * Busca un Pokémon por nombre.
- */
-function searchPokemon() {
-    const name = document.getElementById("searchInput").value.trim().toLowerCase();
-    if (!name) return;
-
-    fetch(`${apiUrl}/${name}`)
-        .then(response => {
-            if (!response.ok) throw new Error("Pokémon no encontrado");
-            return response.json();
-        })
-        .then(pokemon => displayPokemon([pokemon]))
-        .catch(error => {
-            console.error(error);
-            document.getElementById("pokemonContainer").innerHTML = "<p>Pokémon no encontrado.</p>";
-        });
-}
-
-/**
  * Carga todos los Pokémon desde la API externa y los guarda en la base de datos.
  */
 function loadAllPokemon() {
@@ -114,10 +108,11 @@ function loadAllPokemon() {
         });
 }
 
-// Asignar eventos a los botones
-document.getElementById("loadDataBtn").addEventListener("click", loadAllPokemon);
-document.getElementById("prevPage").addEventListener("click", () => changePage(-1));
-document.getElementById("nextPage").addEventListener("click", () => changePage(1));
+document.addEventListener("DOMContentLoaded", () => {
+    // Verifica si los elementos existen antes de agregar eventos
+    document.getElementById("loadDataBtn")?.addEventListener("click", loadAllPokemon);
+    document.getElementById("prevPage")?.addEventListener("click", () => changePage(-1));
+    document.getElementById("nextPage")?.addEventListener("click", () => changePage(1));
 
-// Cargar Pokémon al iniciar
-loadPokemon();
+    loadPokemon();
+});

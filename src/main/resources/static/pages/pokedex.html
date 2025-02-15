@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex - Buscar Pokémon</title>
+    <link rel="stylesheet" href="../css/pokedex.css">
+    <link rel="stylesheet" href="../css/global.css">
+</head>
+<body>
+
+<header>
+    <div id="navbar-container"></div>
+    <button id="theme-toggle" class="theme-toggle">🌙 Modo Oscuro</button>
+</header>
+
+<main>
+    <!-- 🔍 Barra de búsqueda -->
+    <section class="search-container">
+        <label for="searchInput"></label><input type="text" id="searchInput" placeholder="Ingresa el nombre de un Pokémon">
+        <button id="searchBtn">Buscar</button>
+    </section>
+
+    <!-- 🔹 Contenedor de estadísticas y detalles -->
+    <section id="pokemonDetailsContainer">
+        <!-- 📊 Estadísticas -->
+        <div id="statsContainer">
+            <h2 id="statsTitle">Estadísticas</h2>
+            <table id="statsTable">
+                <thead>
+                <tr>
+                    <th>Estadística</th>
+                    <th>Valor</th>
+                </tr>
+                </thead>
+                <tbody id="statsBody">
+                <!-- Se llenará dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 🏆 Detalles del Pokémon -->
+        <div id="pokemonDetails" class="pokemon-details">
+            <!-- Aquí se mostrarán los detalles del Pokémon -->
+        </div>
+    </section>
+</main>
+
+<div id="footer-container"></div>
+
+<script src="/js/main.js"></script>
+<script src="/js/pokedex.js"></script>
+<script src="../js/theme.js"></script>
+
+</body>
+</html>

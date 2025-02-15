@@ -38,6 +38,10 @@ function displayPokemonByType(pokemons) {
             <img src="${pokemon.sprites.frontDefault}" alt="${pokemon.name}">
             <h3>${pokemon.name.toUpperCase()}</h3>
         `;
+        // 🔹 Agregar evento de clic para redirigir a la vista de búsqueda con detalles
+        card.addEventListener("click", () => {
+            window.location.href = `/pages/pokedex.html?name=${pokemon.name}`;
+        });
         container.appendChild(card);
     });
 }

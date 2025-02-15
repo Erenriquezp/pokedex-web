@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon por Tipo</title>
+    <link rel="stylesheet" href="../css/types.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+
+<header>
+    <div id="navbar-container"></div> <!-- Carga dinámica del navbar -->
+    <button id="theme-toggle" class="theme-toggle">🌙 Modo Oscuro</button>
+</header>
+
+<main>
+    <section class="search-container">
+        <label for="typeInput"></label><input type="text" id="typeInput" placeholder="Ingrese un tipo (ej. fire, water)">
+        <button id="searchTypeBtn">Buscar</button>
+    </section>
+
+    <section id="typeResults" class="grid-container">
+        <!-- Pokémon filtrados por tipo se mostrarán aquí -->
+    </section>
+</main>
+
+<div id="footer-container"></div> <!-- Carga dinámica del footer -->
+
+<script src="../js/main.js"></script>
+<script src="../js/types.js"></script>
+<script src="../js/theme.js"></script>
+
+</body>
+</html>

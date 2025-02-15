@@ -1,11 +1,14 @@
 package ec.edu.uce.pokedexweb.service;
 
+import ec.edu.uce.pokedexweb.dto.PokemonDto;
 import ec.edu.uce.pokedexweb.models.Pokemon;
 import ec.edu.uce.pokedexweb.repository.PokemonRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 import java.util.Optional;
 
@@ -42,9 +45,16 @@ public class PokeService {
     }
 
     /**
-     * Busca un Pokémon por nombre.
+     * Busca un Pokémon por su nombre de forma reactiva.
+     *
+     * @param name Nombre del Pokémon.
+     * @return Mono con `ResponseEntity<PokemonDto>`.
      */
-    public Optional<Pokemon> getPokemonByName(String name) {
-        return pokemonRepository.findByNameIgnoreCase(name);
+    public Mono<ResponseEntity<Pokemon>> getPokemonByName(String name) {
+        return Mono.fromCallable(() -> pokemonRepository.findByNameIgnoreCase(name)) // Obtiene el Pokémon de la BD
+                .map(Optional::orElseThrow) // Lanza excepción si no lo encuentra
+                .map(ResponseEntity::ok) // Retorna 200 OK si existe
+                .defaultIfEmpty(ResponseEntity.notFound().build()) // Retorna 404 si no lo encuentra
+                .subscribeOn(Schedulers.boundedElastic()); // Optimización de hilos
     }
 }

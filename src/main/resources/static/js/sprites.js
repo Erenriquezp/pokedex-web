@@ -41,7 +41,7 @@ function displaySprites(sprites) {
     spriteUrls.forEach(sprite => {
         if (sprite.url) {
             const card = document.createElement("div");
-            card.className = "sprite-card";
+            card.className = "pokemon-card";
             card.innerHTML = `
                 <img src="${sprite.url}" alt="${sprite.label}">
                 <p>${sprite.label}</p>

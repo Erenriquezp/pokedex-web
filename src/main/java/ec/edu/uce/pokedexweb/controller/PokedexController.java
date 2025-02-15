@@ -1,6 +1,7 @@
 package ec.edu.uce.pokedexweb.controller;
 
 import ec.edu.uce.pokedexweb.dto.PokemonDto;
+import ec.edu.uce.pokedexweb.models.Pokemon;
 import ec.edu.uce.pokedexweb.service.PokeService;
 import ec.edu.uce.pokedexweb.service.PokeServiceDto;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +55,16 @@ public class PokedexController {
         return pokeServiceDto.getPokemonByName(name);
     }
 
+    /**
+     * Obtiene un Pokémon por su nombre.
+     *
+     * @param name Nombre del Pokémon.
+     * @return `Mono<ResponseEntity<PokemonDto>>` con los datos del Pokémon o 404 si no se encuentra.
+     */
+    @GetMapping("name/{name}")
+    public Mono<ResponseEntity<Pokemon>> getPokemonByName1(@PathVariable String name) {
+        return pokeService.getPokemonByName(name);
+    }
 
     /**
      * Carga todos los Pokémon desde la API externa y los guarda en la base de datos.

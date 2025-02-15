@@ -1,24 +1,17 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex Web</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 <body>
 
 <header>
-    <h1>Pokédex Web</h1>
-    <nav>
-        <ul>
-            <li><a href="pokedex.html">Buscar Pokémon</a></li>
-            <li><a href="sprites.html">Ver Sprites</a></li>
-            <li><a href="stats.html">Estadísticas</a></li>
-            <li><a href="evolution.html">Evolución</a></li>
-            <li><a href="types.html">Filtrar por Tipo</a></li>
-        </ul>
-    </nav>
+    <div id="navbar-container"></div>
+    <button id="theme-toggle" class="theme-toggle">🌙 Modo Oscuro</button>
 </header>
 
 <main>
@@ -37,6 +30,11 @@
     </section>
 </main>
 
-<script src="script.js"></script>
+<div id="footer-container"></div>
+
+<script src="../js/main.js"></script>
+<script src="../js/index.js"></script>
+<script src="../js/theme.js"></script>
+
 </body>
 </html>

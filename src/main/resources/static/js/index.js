@@ -82,9 +82,17 @@ function changePage(direction) {
 
 /**
  * Carga todos los Pokémon desde la API externa y los guarda en la base de datos.
+ * Muestra una barra de progreso mientras carga los datos.
  */
 function loadAllPokemon() {
     const loadButton = document.getElementById("loadDataBtn");
+    const progressBar = document.getElementById("progressBar");
+    const progressContainer = document.getElementById("progressContainer");
+
+    // Mostrar barra de progreso
+    progressContainer.style.display = "block";
+    progressBar.style.width = "0%";
+
     loadButton.disabled = true;
     loadButton.innerText = "Cargando...";
 
@@ -95,7 +103,17 @@ function loadAllPokemon() {
         })
         .then(message => {
             console.log(message);
-            alert("¡Datos cargados correctamente!");
+            alert("¡Cargando datos correctamente!");
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 3; // Incremento del progreso
+                progressBar.style.width = `${progress}%`;
+
+                if (progress >= 300) {
+                    clearInterval(interval);
+                    progressContainer.style.display = "none";
+                }
+            }, 400); // Actualiza cada 300ms
             loadPokemon(); // Recargar Pokémon después de la carga
         })
         .catch(error => {
@@ -109,7 +127,6 @@ function loadAllPokemon() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    // Verifica si los elementos existen antes de agregar eventos
     document.getElementById("loadDataBtn")?.addEventListener("click", loadAllPokemon);
     document.getElementById("prevPage")?.addEventListener("click", () => changePage(-1));
     document.getElementById("nextPage")?.addEventListener("click", () => changePage(1));

@@ -182,3 +182,20 @@ body {
     padding: 10px;
     border-radius: 5px;
 }
+/* 🔹 Contenedor de la barra de progreso */
+#progressContainer {
+    width: 100%;
+    background-color: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    display: none; /* Oculto por defecto */
+    margin-top: 15px;
+}
+
+/* 🔹 Barra de progreso */
+#progressBar {
+    width: 0%;
+    height: 10px;
+    background-color: #ff3e3e;
+    transition: width 0.3s ease-in-out;
+}

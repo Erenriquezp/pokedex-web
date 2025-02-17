@@ -14,5 +14,4 @@ public class PokemonDto {
     private List<Type> types;
     private List<Ability> abilities;
     private String spriteUrl;
-
 }

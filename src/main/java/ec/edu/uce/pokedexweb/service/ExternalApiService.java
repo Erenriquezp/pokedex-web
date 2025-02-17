@@ -11,20 +11,21 @@ import reactor.core.scheduler.Schedulers;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class ExternalApiService {
 
     private final WebClient webClient;
-
+    /**
+     * Obtiene un Pokémon desde la API externa y lo mapea.
+     */
     public Mono<Pokemon> getPokemonFromApi(String name) {
         return webClient.get()
                 .uri("/pokemon/{name}", name.toLowerCase())
                 .retrieve()
                 .bodyToMono(Map.class)
-                .timeout(Duration.ofSeconds(5))
                 .map(this::mapToPokemon)
                 .onErrorResume(e -> {
                     System.err.println("Error fetching Pokémon: " + name + " - " + e.getMessage());
@@ -32,6 +33,9 @@ public class ExternalApiService {
                 });
     }
 
+    /**
+     * Obtiene todos los Pokémon en paralelo y los guarda en la base de datos en lotes.
+     */
     public Flux<Pokemon> getAllPokemonFromApi(int limit, int offset) {
         return webClient.get()
                 .uri("/pokemon?limit={limit}&offset={offset}", limit, offset)
@@ -39,7 +43,7 @@ public class ExternalApiService {
                 .bodyToMono(Map.class)
                 .flatMapMany(data -> Flux.fromIterable((List<Map<String, Object>>) data.get("results")))
                 .flatMap(result -> getPokemonFromApi((String) result.get("name"))
-                        .subscribeOn(Schedulers.parallel())
+                        .subscribeOn(Schedulers.parallel())  // Procesar en paralelo
                 )
                 .onErrorResume(e -> {
                     System.err.println("Error fetching Pokémon list: " + e.getMessage());
@@ -47,6 +51,9 @@ public class ExternalApiService {
                 });
     }
 
+    /**
+     * Mapea la respuesta de la API a un objeto Pokémon.
+     */
     private Pokemon mapToPokemon(Map<String, Object> data) {
         if (data == null || !data.containsKey("id")) return null;
 
@@ -66,8 +73,8 @@ public class ExternalApiService {
     }
 
     private <T> List<T> mapList(Map<String, Object> data, String key, java.util.function.Function<Map<String, Object>, T> mapper) {
-        List<Map<String, Object>> list = (List<Map<String, Object>>) data.getOrDefault(key, List.of());
-        return list.stream().map(mapper).collect(Collectors.toList());
+        return ((List<Map<String, Object>>) data.getOrDefault(key, List.of()))
+                .stream().map(mapper).toList();
     }
 
     private Ability mapToAbility(Map<String, Object> data) {
@@ -106,9 +113,11 @@ public class ExternalApiService {
         );
     }
 
+    /**
+     * Mapea los sprites de la API al objeto Sprites.
+     */
     private Sprites mapToSprites(Map<String, Object> data) {
         Sprites sprites = new Sprites();
-
         sprites.setFrontDefault((String) data.getOrDefault("front_default", ""));
         sprites.setBackDefault((String) data.getOrDefault("back_default", ""));
         sprites.setFrontShiny((String) data.getOrDefault("front_shiny", ""));
@@ -118,25 +127,14 @@ public class ExternalApiService {
         sprites.setFrontShinyFemale((String) data.getOrDefault("front_shiny_female", ""));
         sprites.setBackShinyFemale((String) data.getOrDefault("back_shiny_female", ""));
 
-        // Obtener la sección "other"
-        Map<String, Object> otherSprites = (Map<String, Object>) data.get("other");
+        Optional.ofNullable((Map<String, Object>) data.get("other"))
+                .ifPresent(otherSprites -> {
+                    Optional.ofNullable((Map<String, Object>) otherSprites.get("dream_world"))
+                            .ifPresent(dreamWorld -> sprites.setDreamWorldFront((String) dreamWorld.getOrDefault("front_default", "")));
 
-        // Dream World sprites
-        Map<String, Object> dreamWorld = (Map<String, Object>) otherSprites.getOrDefault("dream_world", Map.of());
-        sprites.setDreamWorldFront((String) dreamWorld.getOrDefault("front_default", ""));
-        sprites.setDreamWorldFrontFemale((String) dreamWorld.getOrDefault("front_female", ""));
-
-        // Home sprites
-        Map<String, Object> homeSprites = (Map<String, Object>) otherSprites.getOrDefault("home", Map.of());
-        sprites.setHomeFront((String) homeSprites.getOrDefault("front_default", ""));
-        sprites.setHomeFrontShiny((String) homeSprites.getOrDefault("front_shiny", ""));
-        sprites.setHomeFrontFemale((String) homeSprites.getOrDefault("front_female", ""));
-        sprites.setHomeFrontShinyFemale((String) homeSprites.getOrDefault("front_shiny_female", ""));
-
-        // Official Artwork sprites
-        Map<String, Object> officialArtwork = (Map<String, Object>) otherSprites.getOrDefault("official-artwork", Map.of());
-        sprites.setOfficialArtworkFront((String) officialArtwork.getOrDefault("front_default", ""));
-        sprites.setOfficialArtworkShiny((String) officialArtwork.getOrDefault("front_shiny", ""));
+                    Optional.ofNullable((Map<String, Object>) otherSprites.get("official-artwork"))
+                            .ifPresent(artwork -> sprites.setOfficialArtworkFront((String) artwork.getOrDefault("front_default", "")));
+                });
 
         return sprites;
     }
